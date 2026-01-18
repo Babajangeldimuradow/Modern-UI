@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Modern UI — Dark / Light</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============ THEME TOKENS ============ */
+    :root {
+      --radius: 22px;
+      --transition: .25s ease;
+    }
+
+    /* DARK MODE */
+    html[data-theme="dark"] {
+      --bg-start: #020617;
+      --bg-end: #0f172a;
+      --primary: #60a5fa;
+      --secondary: #a78bfa;
+      --accent: #22c55e;
+      --text-main: #e5e7eb;
+      --text-muted: #94a3b8;
+      --glass: rgba(255,255,255,0.04);
+      --border-glass: rgba(255,255,255,0.08);
+    }
+
+    /* LIGHT MODE */
+    html[data-theme="light"] {
+      --bg-start: #f8fafc;
+      --bg-end: #e2e8f0;
+      --primary: #2563eb;
+      --secondary: #7c3aed;
+      --accent: #16a34a;
+      --text-main: #020617;
+      --text-muted: #475569;
+      --glass: rgba(255,255,255,0.7);
+      --border-glass: rgba(0,0,0,0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      transition: background var(--transition), color var(--transition), border var(--transition);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: radial-gradient(circle at top, var(--bg-end), var(--bg-start));
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    /* ============ HEADER ============ */
+
+    header {
+      padding: 120px 20px 100px;
+      text-align: center;
+      position: relative;
+    }
+
+    header h1 {
+      font-size: clamp(40px, 6vw, 64px);
+      font-weight: 700;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      max-width: 620px;
+      margin: auto;
+      font-size: 18px;
+      color: var(--text-muted);
+    }
+
+    /* ============ TOGGLE BUTTON ============ */
+
+    .theme-toggle {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      background: var(--glass);
+      border: 1px solid var(--border-glass);
+      border-radius: 999px;
+      padding: 10px 18px;
+      cursor: pointer;
+      font-size: 14px;
+      backdrop-filter: blur(12px);
+    }
+
+    .theme-toggle:hover {
+      opacity: .8;
+    }
+
+    /* ============ BUTTON ============ */
+
+    .btn {
+      margin-top: 40px;
+      padding: 14px 36px;
+      border-radius: 999px;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(90deg, var(--accent), #4ade80);
+      color: #022c22;
+      box-shadow: 0 12px 30px rgba(0,0,0,.25);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    /* ============ SECTION ============ */
+
+    section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 80px 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+    }
+
+    .card {
+      background: var(--glass);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius);
+      padding: 34px;
+      backdrop-filter: blur(14px);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      color: var(--primary);
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
+    /* ============ FOOTER ============ */
+
+    footer {
+      text-align: center;
+      padding: 50px 20px;
+      font-size: 14px;
+      color: var(--text-muted);
+      opacity: .6;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙 / ☀️</button>
+
+    <h1>Modern Web UI</h1>
+    <p>
+      Clean, scalable interface with professional Dark & Light modes —
+      perfect for SaaS and dashboards.
+    </p>
+
+    <button class="btn">Get Started</button>
+  </header>
+
+  <section>
+    <div class="grid">
+      <div class="card">
+        <h3>Dark / Light Mode</h3>
+        <p>Automatic theme switching with smooth transitions.</p>
+      </div>
+      <div class="card">
+        <h3>Responsive UI</h3>
+        <p>Optimized for all screen sizes and devices.</p>
+      </div>
+      <div class="card">
+        <h3>Production Ready</h3>
+        <p>Easy to integrate with Laravel, React or any backend.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 • Built by Babajan
+  </footer>
+
+  <script>
+    const root = document.documentElement;
+
+    const savedTheme = localStorage.getItem("theme") || "dark";
+    root.setAttribute("data-theme", savedTheme);
+
+    function toggleTheme() {
+      const current = root.getAttribute("data-theme");
+      const next = current === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+    }
+  </script>
+
+</body>
+</html>
